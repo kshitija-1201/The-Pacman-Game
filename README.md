@@ -1,4 +1,16 @@
-# 🎮 The-Pacman-Game
+<p align="center">
+  <h1 align="center">🎮 The-Pacman-Game</h1>
+  <p align="center">
+    Classic Pac-Man Game built using Java Swing/AWT
+  </p>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Open%20Source-Friendly-brightgreen?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/GSSoC-Project-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/license/dishu4u/The-Pacman-Game?style=for-the-badge"/>
+</p>
 
 A classic Pac-Man arcade game built using Java Swing/AWT.
 
