@@ -124,6 +124,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     int score = 0;
     int lives = 3;
     boolean gameOver = false;
+    boolean showInstructions = true;
 
     PacMan() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
@@ -226,6 +227,55 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         else {
             g.drawString("x" + String.valueOf(lives) + " Score: " + String.valueOf(score), tileSize/2, tileSize/2);
         }
+        
+        if (showInstructions) {
+            g.setColor(new Color(0, 0, 0, 210)); 
+            g.fillRect(0, 0, boardWidth, boardHeight);
+
+            String title = "PAC-MAN";
+            String controlsTitle = "HOW TO PLAY";
+            String controls = "↑ ↓ ← → Arrow Keys to Move";
+            String objMsg = "Eat all the food, avoid the ghosts!";
+            String startMsg = "Press ANY KEY to Start!";
+
+            // Title with shadow
+            g.setFont(new Font("Arial", Font.BOLD, 50));
+            FontMetrics fm = g.getFontMetrics();
+            g.setColor(Color.BLUE);
+            g.drawString(title, (boardWidth - fm.stringWidth(title)) / 2 + 4, boardHeight / 2 - 146);
+            g.setColor(Color.YELLOW);
+            g.drawString(title, (boardWidth - fm.stringWidth(title)) / 2, boardHeight / 2 - 150);
+
+            // Draw game sprites for decoration
+            int imgY = boardHeight / 2 - 110;
+            g.drawImage(pacmanRightImage, boardWidth / 2 - 90, imgY, tileSize + 10, tileSize + 10, null);
+            g.drawImage(redGhostImage, boardWidth / 2 - 30, imgY, tileSize + 10, tileSize + 10, null);
+            g.drawImage(blueGhostImage, boardWidth / 2 + 30, imgY, tileSize + 10, tileSize + 10, null);
+            g.drawImage(pinkGhostImage, boardWidth / 2 + 90, imgY, tileSize + 10, tileSize + 10, null);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.BOLD, 26));
+            fm = g.getFontMetrics();
+            g.drawString(controlsTitle, (boardWidth - fm.stringWidth(controlsTitle)) / 2, boardHeight / 2 - 20);
+            
+            g.setColor(Color.CYAN);
+            g.setFont(new Font("Arial", Font.PLAIN, 22));
+            fm = g.getFontMetrics();
+            g.drawString(controls, (boardWidth - fm.stringWidth(controls)) / 2, boardHeight / 2 + 20);
+            
+            g.setColor(Color.PINK);
+            g.setFont(new Font("Arial", Font.PLAIN, 20));
+            fm = g.getFontMetrics();
+            g.drawString(objMsg, (boardWidth - fm.stringWidth(objMsg)) / 2, boardHeight / 2 + 60);
+            
+            // Blinking start message
+            if ((System.currentTimeMillis() / 500) % 2 == 0) {
+                g.setColor(Color.ORANGE);
+                g.setFont(new Font("Arial", Font.BOLD, 24));
+                fm = g.getFontMetrics();
+                g.drawString(startMsg, (boardWidth - fm.stringWidth(startMsg)) / 2, boardHeight / 2 + 130);
+            }
+        }
     }
 
     public void move() {
@@ -303,6 +353,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (showInstructions) {
+            repaint();
+            return;
+        }
         move();
         repaint();
         if (gameOver) {
@@ -318,6 +372,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (showInstructions) {
+            showInstructions = false;
+            return;
+        }
         if (gameOver) {
             loadMap();
             resetPositions();
